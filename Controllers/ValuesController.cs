@@ -20,7 +20,7 @@ namespace MyApi.Controllers
             this._context = context;
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues(){
             var values = await  _context.Values.ToListAsync();
