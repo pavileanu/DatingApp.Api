@@ -25,11 +25,6 @@ namespace MyApi.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
-         public async Task<IActionResult> GetValues(){
-            return Ok(1);
-         }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userToRegister)
         {
