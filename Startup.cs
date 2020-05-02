@@ -23,6 +23,7 @@ using System.Text;
 using MyApi.Data;
 using Microsoft.AspNetCore.Http;
 using MyApi.Helpers;
+using MyApi.Helpers;
 
 namespace MyApi
 {
@@ -44,6 +45,7 @@ namespace MyApi
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(DataingRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>(); 
             services.AddScoped<IDatingRepository, DataingRepository>();

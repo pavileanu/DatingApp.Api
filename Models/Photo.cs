@@ -18,5 +18,7 @@ namespace MyApi.Models
 
         public int UserId { get; set; }
 
+        public string PublicId {get; set;}
+
     }
 }

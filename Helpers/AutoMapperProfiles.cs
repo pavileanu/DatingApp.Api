@@ -25,6 +25,8 @@ namespace MyApi.Helpers
                 }); 
             CreateMap<Photo, PhotoForUserDto>();
             CreateMap<UserForUpdateDto, User>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDbo, Photo>();
         }
     }
 }
