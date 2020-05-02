@@ -15,7 +15,7 @@ using System.Linq;
 namespace MyApi.Controllers
 {
     [Authorize]
-    [Route("api/users/{userId}/photos")]
+    [Route("users/{userId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase
     {
