@@ -16,5 +16,7 @@ namespace MyApi.Data
 
          Task<Photo> GetPhoto(int id);
 
+         Task<Photo> GetMainPhotoForUser(int userId);
+
     }
 }
