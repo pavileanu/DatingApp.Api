@@ -6,9 +6,11 @@ using System.Security.Claims;
 using AutoMapper;
 using MyApi.Data;
 using MyApi.Dtos;
+using MyApi.Helpers;
 
 namespace MyApi.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("[controller]")]
     [ApiController]
