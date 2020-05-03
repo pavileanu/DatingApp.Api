@@ -36,13 +36,10 @@ namespace MyApi.Controllers
             if(await _repo.UserExists(userToRegister.username))
                 return BadRequest("User already exists");
             
-            var UserToCreate = new User{
-                Username = userToRegister.username
-            };
-
-            var UserCreated = _repo.Register(UserToCreate, userToRegister.password);
-
-            return StatusCode(201);             
+            var UserToCreate = _mapper.Map<User>(userToRegister);
+            var UserCreated = await _repo.Register(UserToCreate, userToRegister.password);
+            var userToReturn = _mapper.Map<UserForDetailListDto>(UserCreated);
+            return Ok(userToReturn);           
         }
 
         [HttpPost("login")]

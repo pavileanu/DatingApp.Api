@@ -23,7 +23,6 @@ using System.Text;
 using MyApi.Data;
 using Microsoft.AspNetCore.Http;
 using MyApi.Helpers;
-using MyApi.Helpers;
 
 namespace MyApi
 {

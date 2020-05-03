@@ -15,6 +15,8 @@ namespace MyApi.Dtos
 
         public string PublicId {get; set;}
 
+        public bool isMain {get; set;}
+
         public PhotoForReturnDto()
         {
             DateAdded = DateTime.Now;
