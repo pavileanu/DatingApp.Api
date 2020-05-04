@@ -28,6 +28,13 @@ namespace MyApi.Helpers
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDbo, Photo>();
             CreateMap<UserForRegisterDto, User>();
+            CreateMap<MessageCreationDto, Message>().ReverseMap();
+            CreateMap<Message, MessageReturnDto>()
+                .ForMember(m => m.SenderPhotoUrl, opt => opt
+                    .MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.isMain).Url))
+                .ForMember(m => m.RecipientPhotoUrl, opt => opt
+                    .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.isMain).Url));
+
         }
     }
 }
