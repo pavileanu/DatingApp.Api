@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using MyApi.Models;
+using MyApi.Helpers;
 
 namespace MyApi.Data
 {
@@ -11,7 +12,7 @@ namespace MyApi.Data
 
          Task<bool> SaveAll();
 
-         Task<IEnumerable<User>> GetUsers();
+         Task<PageList<User>> GetUsers(UserParams userParams);
          Task<User> GetUser(int id);
 
          Task<Photo> GetPhoto(int id);

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using MyApi.Models;
+using MyApi.Helpers;
+using System;
 
 namespace MyApi.Data
 {
@@ -26,10 +28,32 @@ namespace MyApi.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PageList<User>> GetUsers(UserParams userParams)
         {
-            var users = await _context.Users.Include(p => p.Photos).ToListAsync();
-            return users;
+            var users = _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
+
+            users = users.Where(u => u.Id != userParams.UserId).Where(u => u.Gender == userParams.Gender);
+            if(userParams.MinAge != 18 || userParams.MaxAge != 99)
+            {
+                var minDate = DateTime.Today.AddYears(-userParams.MinAge - 1);
+                var maxDate = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+                users = users.Where(u => u.DateOfBirth <= minDate && u.DateOfBirth >= maxDate);
+            }
+
+            if(!string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch(userParams.OrderBy)
+                {
+                    case "created":
+                        users = users.OrderByDescending(u => u.Created);
+                        break;
+                    default: 
+                        users = users.OrderByDescending(u => u.LastActive);
+                        break;
+                }
+            }
+
+            return await PageList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
 
         public void remove<T>(T entity) where T : class
@@ -37,7 +61,7 @@ namespace MyApi.Data
              _context.Remove(entity);
         }
 
-        public async Task<bool> SaveAll()
+        public async Task<bool> SaveAll() 
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
